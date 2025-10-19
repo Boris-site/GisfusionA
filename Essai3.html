@@ -1,0 +1,2896 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GisFusion™ - Abonnements Premium</title>
+    <meta name="description" content="Netflix, Spotify, Amazon Prime à prix réduits. Accès instantané garanti. Service Bénin.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --primary-blue: #0066cc;
+            --dark-blue: #004499;
+            --light-blue: #3388ee;
+            --netflix-red: #e50914;
+            --netflix-dark: #b20710;
+            --spotify-green: #1DB954;
+            --spotify-dark: #1aa34a;
+            --amazon-blue: #00A8E1;
+            --amazon-dark: #0066c0;
+            --combo-purple: #9b59b6;
+            --combo-dark: #8e44ad;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --border-color: #333333;
+            --section-padding: 80px 20px;
+            --container-max-width: 1200px;
+            --eu-blue: #003399;
+            --eu-gold: #FFCC00;
+            
+            /* Variables pour le nouveau design de cartes */
+            --card-light-bg: #222222;
+            --card-border: #444444;
+            --card-shadow: rgba(0, 0, 0, 0.3);
+            --card-hover-shadow: rgba(0, 0, 0, 0.5);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Menu hamburger pour mobile */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--primary-blue);
+        }
+        
+        /* Styles pour le menu mobile */
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            max-height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+        
+        .nav-links.active li {
+            margin: 15px 0;
+        }
+        
+        .nav-links.active a {
+            font-size: 1.2rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: var(--section-padding);
+            background: linear-gradient(135deg, rgba(0, 51, 153, 0.1) 0%, rgba(10, 10, 10, 0.8) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></svg>');
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #ffffff, var(--eu-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease 0.2s;
+            animation-fill-mode: both;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease 0.4s;
+            animation-fill-mode: both;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--eu-blue);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 51, 153, 0.4);
+            animation: fadeInUp 0.8s ease 0.6s;
+            animation-fill-mode: both;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 51, 153, 0.6);
+        }
+        
+        .trust-text {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.8s;
+            animation-fill-mode: both;
+        }
+        
+        .trust-text span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Section Separator */
+        .section-separator {
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 51, 153, 0.1), transparent);
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-separator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+        
+        /* NOUVEAU DESIGN - Abonnements Section */
+        .popular-subscriptions {
+            padding: 60px 20px;
+            background-color: rgba(26, 26, 26, 0.5);
+            position: relative;
+        }
+        
+        .popular-subscriptions::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--netflix-red), var(--spotify-green), var(--amazon-blue), var(--combo-purple));
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--eu-blue);
+            border-radius: 2px;
+        }
+        
+        .section-intro {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 50px;
+            animation: fadeInUp 0.8s ease 0.2s;
+            animation-fill-mode: both;
+        }
+        
+        /* NOUVEAU DESIGN - Cartes d'abonnement */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .subscription-card {
+            background: var(--card-light-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--card-shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--card-border);
+            position: relative;
+        }
+        
+        .subscription-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px var(--card-hover-shadow);
+        }
+        
+        .card-header {
+            padding: 25px 25px 15px;
+            position: relative;
+            text-align: center;
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            margin: 0 auto 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .subscription-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+        
+        .netflix .service-icon {
+            background: linear-gradient(135deg, var(--netflix-red), var(--netflix-dark));
+        }
+        
+        .spotify .service-icon {
+            background: linear-gradient(135deg, var(--spotify-green), var(--spotify-dark));
+        }
+        
+        .prime .service-icon {
+            background: linear-gradient(135deg, var(--amazon-blue), var(--amazon-dark));
+        }
+        
+        .disney .service-icon {
+            background: linear-gradient(135deg, #113ccf, #002d62);
+        }
+        
+        .telegram .service-icon {
+            background: linear-gradient(135deg, #0088cc, #005580);
+        }
+        
+        .service-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        
+        .service-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Onglets des offres */
+        .offers-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--card-border);
+            margin: 20px 25px 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .offers-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+        }
+        
+        .tab-button:hover {
+            color: var(--text-primary);
+        }
+        
+        .tab-button.active {
+            color: var(--text-primary);
+        }
+        
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: currentColor;
+        }
+        
+        .netflix .tab-button.active {
+            color: var(--netflix-red);
+        }
+        
+        .spotify .tab-button.active {
+            color: var(--spotify-green);
+        }
+        
+        .prime .tab-button.active {
+            color: var(--amazon-blue);
+        }
+        
+        .disney .tab-button.active {
+            color: #113ccf;
+        }
+        
+        .telegram .tab-button.active {
+            color: #0088cc;
+        }
+        
+        /* Contenu des onglets */
+        .tab-content {
+            display: none;
+            padding: 20px 25px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* NOUVEAU - Amélioration de l'affichage des prix */
+        .price-container {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .price-currency {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        
+        .price-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--eu-blue), var(--dark-blue));
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .price-comparison {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .features-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .features-list i {
+            margin-right: 10px;
+            font-size: 0.8rem;
+            width: 16px;
+            text-align: center;
+        }
+        
+        .netflix .features-list i {
+            color: var(--netflix-red);
+        }
+        
+        .spotify .features-list i {
+            color: var(--spotify-green);
+        }
+        
+        .prime .features-list i {
+            color: var(--amazon-blue);
+        }
+        
+        .disney .features-list i {
+            color: #113ccf;
+        }
+        
+        .telegram .features-list i {
+            color: #0088cc;
+        }
+        
+        .card-footer {
+            padding: 0 25px 25px;
+        }
+        
+        .cta-button-card {
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+        
+        .cta-button-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .netflix .cta-button-card {
+            background: linear-gradient(135deg, var(--netflix-red), var(--netflix-dark));
+            color: white;
+        }
+        
+        .netflix .cta-button-card:hover {
+            background: linear-gradient(135deg, #f40612, #c60810);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 9, 20, 0.3);
+        }
+        
+        .spotify .cta-button-card {
+            background: linear-gradient(135deg, var(--spotify-green), var(--spotify-dark));
+            color: white;
+        }
+        
+        .spotify .cta-button-card:hover {
+            background: linear-gradient(135deg, #1ed760, #1aa34a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(29, 185, 84, 0.3);
+        }
+        
+        .prime .cta-button-card {
+            background: linear-gradient(135deg, var(--amazon-blue), var(--amazon-dark));
+            color: white;
+        }
+        
+        .prime .cta-button-card:hover {
+            background: linear-gradient(135deg, #0099d4, #0066c0);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 168, 225, 0.3);
+        }
+        
+        .disney .cta-button-card {
+            background: linear-gradient(135deg, #113ccf, #002d62);
+            color: white;
+        }
+        
+        .disney .cta-button-card:hover {
+            background: linear-gradient(135deg, #0044cc, #002250);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(17, 60, 207, 0.3);
+        }
+        
+        .telegram .cta-button-card {
+            background: linear-gradient(135deg, #0088cc, #005580);
+            color: white;
+        }
+        
+        .telegram .cta-button-card:hover {
+            background: linear-gradient(135deg, #0099dd, #006699);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.3);
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: var(--section-padding);
+            background-color: rgba(26, 26, 26, 0.5);
+            position: relative;
+        }
+        
+        .how-it-works::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .step {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+        
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.2s; }
+        .step:nth-child(3) { animation-delay: 0.3s; }
+        
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--eu-blue);
+        }
+        
+        .step-icon {
+            background-color: rgba(0, 51, 153, 0.2);
+            color: var(--eu-blue);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover .step-icon {
+            background-color: var(--eu-blue);
+            color: white;
+        }
+        
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .security-note {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            animation: fadeInUp 0.8s ease 0.6s;
+            animation-fill-mode: both;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: var(--section-padding);
+            position: relative;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0) 0%, rgba(0, 51, 153, 0.05) 100%);
+        }
+        
+        .faq::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+        
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(0, 51, 153, 0.1);
+            color: var(--eu-blue);
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: var(--section-padding);
+            background-color: rgba(26, 26, 26, 0.5);
+            position: relative;
+        }
+        
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--netflix-red), var(--spotify-green), var(--amazon-blue));
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border-left: 4px solid var(--eu-blue);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+        
+        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+        .testimonial-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--eu-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .rating {
+            color: #ffc107;
+            margin-top: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 50px 0 20px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--eu-blue);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--eu-blue);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--eu-blue);
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .eu-badge {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: rgba(0, 51, 153, 0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .eu-badge i {
+            margin-right: 5px;
+            color: var(--eu-gold);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal.show {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 95vh;
+            overflow: hidden;
+            position: relative;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--eu-blue), var(--dark-blue));
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 30px;
+            max-height: calc(95vh - 80px);
+            overflow-y: auto;
+        }
+        
+        .service-info {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .service-info h3 {
+            margin: 0 0 10px 0;
+            color: var(--eu-blue);
+            font-size: 1.2rem;
+        }
+        
+        /* Styles pour le formulaire natif */
+        #gf-form {
+            display: grid;
+            gap: 15px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        
+        #gf-form input,
+        #gf-form select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        #gf-form select option {
+            color: #000;
+            background-color: #fff;
+        }
+
+        #gf-form input:focus,
+        #gf-form select:focus {
+            outline: none;
+            border-color: var(--eu-blue);
+            background-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(0, 51, 153, 0.1);
+        }
+        
+        #gf-form input::placeholder {
+            color: var(--text-secondary);
+        }
+        
+        #gf-form button {
+            background: linear-gradient(135deg, var(--eu-blue), var(--dark-blue));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+        }
+        
+        #gf-form button:hover {
+            background: linear-gradient(135deg, var(--dark-blue), var(--eu-blue));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 51, 153, 0.3);
+        }
+        
+        #gf-form button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        #gf-msg {
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+        
+        #gf-msg.success {
+            color: #4caf50;
+        }
+        
+        #gf-msg.error {
+            color: #f44336;
+        }
+        
+        #gf-msg.loading {
+            color: var(--text-secondary);
+        }
+        
+        /* Ajout pour le débogage */
+        .debug-info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 9999;
+            display: none;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section-intro {
+                font-size: 1rem;
+            }
+            
+            /* Cartes responsive */
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card-header {
+                padding: 20px 20px 10px;
+            }
+            
+            .service-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .service-name {
+                font-size: 1.3rem;
+            }
+            
+            .service-description {
+                font-size: 0.9rem;
+            }
+            
+            .offers-tabs {
+                margin: 15px 20px 0;
+                padding: 0 5px;
+            }
+            
+            .tab-button {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            
+            .tab-content {
+                padding: 15px 20px;
+            }
+            
+            .price-amount {
+                font-size: 2.5rem;
+            }
+            
+            .features-list li {
+                font-size: 0.85rem;
+                margin-bottom: 10px;
+            }
+            
+            .card-footer {
+                padding: 0 20px 20px;
+            }
+            
+            .cta-button-card {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+            
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Modal Responsive */
+            .modal-content {
+                width: 95%;
+                max-width: 95%;
+                margin: 10px auto;
+                border-radius: 15px;
+                max-height: 95vh;
+            }
+            
+            .modal-header {
+                padding: 15px 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .modal-body {
+                padding: 15px;
+                max-height: calc(95vh - 80px);
+                overflow-y: auto;
+            }
+            
+            .faq-question {
+                padding: 15px;
+                font-size: 0.95rem;
+            }
+            
+            .faq-answer {
+                font-size: 0.85rem;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 0 15px 15px;
+                max-height: 600px;
+            }
+            
+            /* Mobile-specific improvements */
+            .section-separator {
+                height: 40px;
+            }
+            
+            .step {
+                padding: 20px;
+            }
+            
+            .step-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .step h3 {
+                font-size: 1.2rem;
+            }
+            
+            .step p {
+                font-size: 0.9rem;
+            }
+            
+            .testimonial-card {
+                padding: 20px;
+            }
+            
+            .testimonial-text {
+                font-size: 0.95rem;
+            }
+            
+            .author-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .footer-column {
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Additional mobile enhancements */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.3;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero p {
+                font-size: 0.95rem;
+            }
+            
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .trust-text {
+                font-size: 0.8rem;
+                gap: 10px;
+            }
+            
+            .trust-text span {
+                font-size: 0.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-intro {
+                font-size: 0.95rem;
+            }
+            
+            .card-header {
+                padding: 15px 15px 10px;
+            }
+            
+            .service-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+            
+            .service-name {
+                font-size: 1.2rem;
+            }
+            
+            .service-description {
+                font-size: 0.85rem;
+            }
+            
+            .offers-tabs {
+                margin: 10px 15px 0;
+            }
+            
+            .tab-button {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .tab-content {
+                padding: 12px 15px;
+            }
+            
+            .price-amount {
+                font-size: 2.2rem;
+            }
+            
+            .features-list li {
+                font-size: 0.8rem;
+                margin-bottom: 8px;
+            }
+            
+            .card-footer {
+                padding: 0 15px 15px;
+            }
+            
+            .cta-button-card {
+                padding: 11px 18px;
+                font-size: 0.9rem;
+            }
+            
+            .step {
+                padding: 15px;
+            }
+            
+            .step-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .step h3 {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+            }
+            
+            .step p {
+                font-size: 0.85rem;
+            }
+            
+            .testimonial-card {
+                padding: 15px;
+            }
+            
+            .testimonial-text {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+            
+            .author-avatar {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .author-info h4 {
+                font-size: 0.95rem;
+            }
+            
+            .author-info p {
+                font-size: 0.8rem;
+            }
+            
+            .rating {
+                font-size: 0.8rem;
+            }
+            
+            .faq-question {
+                padding: 15px;
+                font-size: 0.95rem;
+            }
+            
+            .faq-answer {
+                font-size: 0.85rem;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 0 15px 15px;
+            }
+            
+            /* Modal Small Mobile */
+            .modal-content {
+                width: 98%;
+                margin: 5px auto;
+                border-radius: 15px;
+            }
+            
+            .modal-header {
+                padding: 12px 15px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1rem;
+            }
+            
+            .close {
+                width: 30px;
+                height: 30px;
+                font-size: 1.2rem;
+            }
+            
+            .modal-body {
+                padding: 10px;
+                max-height: calc(95vh - 70px);
+            }
+            
+            .service-info {
+                padding: 10px;
+            }
+            
+            .service-info h3 {
+                font-size: 1rem;
+            }
+            
+            #gf-form {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-play-circle"></i>
+                    GisFusion™
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#abonnements">Abonnements</a></li>
+                    <li><a href="#how-it-works">Comment ça marche</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#testimonials">Témoignages</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>STOP AUX ABONNEMENTS HORS DE PRIX</h1>
+                <p class="subtitle">Votre streaming premium, sans le prix premium</p>
+                <p>Vous en avez assez de voir votre budget mensuel diminuer à cause des abonnements ? Nous aussi. C'est pourquoi nous avons créé GisFusion™ : la solution pour accéder à vos plateformes préférées sans vous ruiner. Notre équipe active manuellement votre compte en quelques minutes. Fini les complications, place au divertissement !</p>
+                <a href="#abonnements" class="cta-button">DÉCOUVRIR LES OFFRES</a>
+                <div class="trust-text">
+                    <span><i class="fas fa-bolt"></i> Activation sous 10 minutes</span>
+                    <span><i class="fas fa-shield-alt"></i> Garantie satisfait ou remboursé</span>
+                    <span><i class="fab fa-whatsapp"></i> Support 7j/7 via WhatsApp</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section Separator -->
+    <div class="section-separator"></div>
+    <!-- NOUVEAU DESIGN - Abonnements Section -->
+    <section class="popular-subscriptions" id="abonnements">
+        <div class="container">
+            <h2 class="section-title">NOS OFFRES D'ABONNEMENTS</h2>
+            <p class="section-intro">Choisissez votre service préféré et sélectionnez l'offre qui vous convient le mieux</p>
+            
+            <div class="cards-grid">
+                <!-- Netflix Card -->
+                <div class="subscription-card netflix">
+                    <div class="card-header">
+                        <div class="service-icon">
+                            <i class="fab fa-netflix"></i>
+                        </div>
+                        <h3 class="service-name">Netflix</h3>
+                        <p class="service-description">Films, séries et documentaires en HD/4K</p>
+                    </div>
+                    
+                    <!-- Onglets des offres Netflix -->
+                    <div class="offers-tabs">
+                        <button class="tab-button active" data-service="netflix" data-offer="personal">Personnel</button>
+                        <button class="tab-button" data-service="netflix" data-offer="shared">Partagé</button>
+                    </div>
+                    
+                    <!-- Contenu des onglets Netflix Personnel -->
+                    <div id="netflix-personal" class="tab-content active">
+                        <div class="offers-tabs">
+                            <button class="tab-button active" data-service="netflix" data-offer="mobile">Mobile</button>
+                            <button class="tab-button" data-service="netflix" data-offer="essential">Essentiel</button>
+                            <button class="tab-button" data-service="netflix" data-offer="standard">Standard</button>
+                            <button class="tab-button" data-service="netflix" data-offer="premium">Premium</button>
+                        </div>
+                        
+                        <div id="netflix-mobile" class="tab-content active">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">5 000</div>
+                                <div class="price-period">par mois</div>
+                                <div class="price-badge">Mobile</div>
+                                <div class="price-comparison">Au lieu de 9 900 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> 1 écran mobile</li>
+                                <li><i class="fas fa-check-circle"></i> Qualité SD</li>
+                                <li><i class="fas fa-check-circle"></i> Téléchargements hors ligne</li>
+                                <li><i class="fas fa-check-circle"></i> Avec publicités</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="netflix-essential" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">6 500</div>
+                                <div class="price-period">par mois</div>
+                                <div class="price-badge">Essentiel</div>
+                                <div class="price-comparison">Au lieu de 12 900 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> 1 écran</li>
+                                <li><i class="fas fa-check-circle"></i> Qualité HD</li>
+                                <li><i class="fas fa-check-circle"></i> Téléchargements hors ligne</li>
+                                <li><i class="fas fa-check-circle"></i> Avec publicités</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="netflix-standard" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">9 500</div>
+                                <div class="price-period">par mois</div>
+                                <div class="price-badge">Standard</div>
+                                <div class="price-comparison">Au lieu de 17 900 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> 2 écrans simultanés</li>
+                                <li><i class="fas fa-check-circle"></i> Qualité Full HD</li>
+                                <li><i class="fas fa-check-circle"></i> Téléchargements hors ligne</li>
+                                <li><i class="fas fa-check-circle"></i> Sans publicités</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="netflix-premium" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">12 500</div>
+                                <div class="price-period">par mois</div>
+                                <div class="price-badge">Premium</div>
+                                <div class="price-comparison">Au lieu de 24 900 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> 4 écrans simultanés</li>
+                                <li><i class="fas fa-check-circle"></i> Qualité Ultra HD 4K</li>
+                                <li><i class="fas fa-check-circle"></i> Téléchargements hors ligne</li>
+                                <li><i class="fas fa-check-circle"></i> Sans publicités</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenu des onglets Netflix Partagé -->
+                    <div id="netflix-shared" class="tab-content">
+                        <div class="offers-tabs">
+                            <button class="tab-button active" data-service="netflix" data-offer="shared-1month">1 mois</button>
+                            <button class="tab-button" data-service="netflix" data-offer="shared-3months">3 mois</button>
+                            <button class="tab-button" data-service="netflix" data-offer="shared-6months">6 mois</button>
+                            <button class="tab-button" data-service="netflix" data-offer="shared-12months">12 mois</button>
+                        </div>
+                        
+                        <div id="netflix-shared-1month" class="tab-content active">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">2 500</div>
+                                <div class="price-period">pour 1 mois</div>
+                                <div class="price-badge">Partagé</div>
+                                <div class="price-comparison">Au lieu de 12 900 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Accès partagé</li>
+                                <li><i class="fas fa-check-circle"></i> Qualité HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Téléchargements hors ligne</li>
+                                <li><i class="fas fa-check-circle"></i> Sans publicités</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="netflix-shared-3months" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">6 500</div>
+                                <div class="price-period">pour 3 mois</div>
+                                <div class="price-badge">Partagé</div>
+                                <div class="price-comparison">Au lieu de 38 700 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Accès partagé</li>
+                                <li><i class="fas fa-check-circle"></i> Qualité HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Téléchargements hors ligne</li>
+                                <li><i class="fas fa-check-circle"></i> Sans publicités</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="netflix-shared-6months" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">12 000</div>
+                                <div class="price-period">pour 6 mois</div>
+                                <div class="price-badge">Partagé</div>
+                                <div class="price-comparison">Au lieu de 77 400 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Accès partagé</li>
+                                <li><i class="fas fa-check-circle"></i> Qualité HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Téléchargements hors ligne</li>
+                                <li><i class="fas fa-check-circle"></i> Sans publicités</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="netflix-shared-12months" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">22 000</div>
+                                <div class="price-period">pour 12 mois</div>
+                                <div class="price-badge">Partagé</div>
+                                <div class="price-comparison">Au lieu de 154 800 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Accès partagé</li>
+                                <li><i class="fas fa-check-circle"></i> Qualité HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Téléchargements hors ligne</li>
+                                <li><i class="fas fa-check-circle"></i> Sans publicités</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <a class="cta-button-card" data-service="Netflix" data-service-name="Netflix Mobile">Commander</a>
+                    </div>
+                </div>
+
+                <!-- Spotify Card -->
+                <div class="subscription-card spotify">
+                    <div class="card-header">
+                        <div class="service-icon">
+                            <i class="fab fa-spotify"></i>
+                        </div>
+                        <h3 class="service-name">Spotify</h3>
+                        <p class="service-description">Écoutez votre musique préférée sans limites</p>
+                    </div>
+                    
+                    <!-- Onglets des offres Spotify -->
+                    <div class="offers-tabs">
+                        <button class="tab-button active" data-service="spotify" data-offer="shared">Compte Partagé</button>
+                    </div>
+                    
+                    <!-- Contenu des onglets Spotify -->
+                    <div id="spotify-shared" class="tab-content active">
+                        <div class="price-container">
+                            <div class="price-currency">FCFA</div>
+                            <div class="price-amount">2 500</div>
+                            <div class="price-period">par mois</div>
+                            <div class="price-badge">Partagé</div>
+                            <div class="price-comparison">Au lieu de 9 900 FCFA</div>
+                        </div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check-circle"></i> Accès partagé</li>
+                            <li><i class="fas fa-check-circle"></i> Qualité audio élevée</li>
+                            <li><i class="fas fa-check-circle"></i> Téléchargement hors ligne</li>
+                            <li><i class="fas fa-check-circle"></i> Sans publicités</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <a class="cta-button-card" data-service="Spotify" data-service-name="Spotify Partagé">Commander</a>
+                    </div>
+                </div>
+
+                <!-- Prime Video Card -->
+                <div class="subscription-card prime">
+                    <div class="card-header">
+                        <div class="service-icon">
+                            <i class="fab fa-amazon"></i>
+                        </div>
+                        <h3 class="service-name">Prime Video</h3>
+                        <p class="service-description">Accédez à des milliers de films et séries</p>
+                    </div>
+                    
+                    <!-- Onglets des offres Prime -->
+                    <div class="offers-tabs">
+                        <button class="tab-button active" data-service="prime" data-offer="personal">Personnel</button>
+                        <button class="tab-button" data-service="prime" data-offer="shared">Partagé</button>
+                    </div>
+                    
+                    <!-- Contenu des onglets Prime Personnel -->
+                    <div id="prime-personal" class="tab-content active">
+                        <div class="offers-tabs">
+                            <button class="tab-button active" data-service="prime" data-offer="personal-1month">1 mois</button>
+                            <button class="tab-button" data-service="prime" data-offer="personal-3months">3 mois</button>
+                            <button class="tab-button" data-service="prime" data-offer="personal-6months">6 mois</button>
+                            <button class="tab-button" data-service="prime" data-offer="personal-12months">12 mois</button>
+                        </div>
+                        
+                        <div id="prime-personal-1month" class="tab-content active">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">7 000</div>
+                                <div class="price-period">pour 1 mois</div>
+                                <div class="price-badge">Personnel</div>
+                                <div class="price-comparison">Au lieu de 12 900 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Compte personnel</li>
+                                <li><i class="fas fa-check-circle"></i> Streaming HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Livraison express gratuite</li>
+                                <li><i class="fas fa-check-circle"></i> Prime Music inclus</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="prime-personal-3months" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">20 500</div>
+                                <div class="price-period">pour 3 mois</div>
+                                <div class="price-badge">Personnel</div>
+                                <div class="price-comparison">Au lieu de 38 700 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Compte personnel</li>
+                                <li><i class="fas fa-check-circle"></i> Streaming HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Livraison express gratuite</li>
+                                <li><i class="fas fa-check-circle"></i> Prime Music inclus</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="prime-personal-6months" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">39 500</div>
+                                <div class="price-period">pour 6 mois</div>
+                                <div class="price-badge">Personnel</div>
+                                <div class="price-comparison">Au lieu de 77 400 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Compte personnel</li>
+                                <li><i class="fas fa-check-circle"></i> Streaming HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Livraison express gratuite</li>
+                                <li><i class="fas fa-check-circle"></i> Prime Music inclus</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="prime-personal-12months" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">75 500</div>
+                                <div class="price-period">pour 12 mois</div>
+                                <div class="price-badge">Personnel</div>
+                                <div class="price-comparison">Au lieu de 154 800 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Compte personnel</li>
+                                <li><i class="fas fa-check-circle"></i> Streaming HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Livraison express gratuite</li>
+                                <li><i class="fas fa-check-circle"></i> Prime Music inclus</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenu des onglets Prime Partagé -->
+                    <div id="prime-shared" class="tab-content">
+                        <div class="offers-tabs">
+                            <button class="tab-button active" data-service="prime" data-offer="shared-1month">1 mois</button>
+                            <button class="tab-button" data-service="prime" data-offer="shared-3months">3 mois</button>
+                            <button class="tab-button" data-service="prime" data-offer="shared-6months">6 mois</button>
+                            <button class="tab-button" data-service="prime" data-offer="shared-12months">12 mois</button>
+                        </div>
+                        
+                        <div id="prime-shared-1month" class="tab-content active">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">2 500</div>
+                                <div class="price-period">pour 1 mois</div>
+                                <div class="price-badge">Partagé</div>
+                                <div class="price-comparison">Au lieu de 12 900 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Accès partagé</li>
+                                <li><i class="fas fa-check-circle"></i> Streaming HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Livraison express gratuite</li>
+                                <li><i class="fas fa-check-circle"></i> Prime Music inclus</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="prime-shared-3months" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">6 500</div>
+                                <div class="price-period">pour 3 mois</div>
+                                <div class="price-badge">Partagé</div>
+                                <div class="price-comparison">Au lieu de 38 700 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Accès partagé</li>
+                                <li><i class="fas fa-check-circle"></i> Streaming HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Livraison express gratuite</li>
+                                <li><i class="fas fa-check-circle"></i> Prime Music inclus</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="prime-shared-6months" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">12 000</div>
+                                <div class="price-period">pour 6 mois</div>
+                                <div class="price-badge">Partagé</div>
+                                <div class="price-comparison">Au lieu de 77 400 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Accès partagé</li>
+                                <li><i class="fas fa-check-circle"></i> Streaming HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Livraison express gratuite</li>
+                                <li><i class="fas fa-check-circle"></i> Prime Music inclus</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="prime-shared-12months" class="tab-content">
+                            <div class="price-container">
+                                <div class="price-currency">FCFA</div>
+                                <div class="price-amount">22 500</div>
+                                <div class="price-period">pour 12 mois</div>
+                                <div class="price-badge">Partagé</div>
+                                <div class="price-comparison">Au lieu de 154 800 FCFA</div>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Accès partagé</li>
+                                <li><i class="fas fa-check-circle"></i> Streaming HD/4K</li>
+                                <li><i class="fas fa-check-circle"></i> Livraison express gratuite</li>
+                                <li><i class="fas fa-check-circle"></i> Prime Music inclus</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <a class="cta-button-card" data-service="Prime Video" data-service-name="Prime Video Personnel">Commander</a>
+                    </div>
+                </div>
+                
+                <!-- Disney+ Card -->
+                <div class="subscription-card disney">
+                    <div class="card-header">
+                        <div class="service-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3 class="service-name">Disney+</h3>
+                        <p class="service-description">Accédez à l'univers Disney, Pixar, Marvel, Star Wars</p>
+                    </div>
+                    
+                    <!-- Contenu Disney+ -->
+                    <div class="tab-content active">
+                        <div class="price-container">
+                            <div class="price-currency">FCFA</div>
+                            <div class="price-amount">5 000</div>
+                            <div class="price-period">par mois</div>
+                            <div class="price-badge">Standard</div>
+                            <div class="price-comparison">Au lieu de 9 900 FCFA</div>
+                        </div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check-circle"></i> Contenu exclusif Disney+</li>
+                            <li><i class="fas fa-check-circle"></i> 4 écrans simultanés</li>
+                            <li><i class="fas fa-check-circle"></i> Qualité 4K Ultra HD</li>
+                            <li><i class="fas fa-check-circle"></i> Téléchargements hors ligne</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <a class="cta-button-card" data-service="Disney+" data-service-name="Disney+ Standard">Commander</a>
+                    </div>
+                </div>
+                
+                <!-- Telegram Premium Card -->
+                <div class="subscription-card telegram">
+                    <div class="card-header">
+                        <div class="service-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h3 class="service-name">Telegram Premium</h3>
+                        <p class="service-description">Débloquez des fonctionnalités exclusives</p>
+                    </div>
+                    
+                    <!-- Contenu Telegram Premium -->
+                    <div class="tab-content active">
+                        <div class="price-container">
+                            <div class="price-currency">Bientôt</div>
+                            <div class="price-amount">Disponible</div>
+                            <div class="price-period"></div>
+                            <div class="price-badge">Coming Soon</div>
+                        </div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check-circle"></i> Téléchargements plus rapides</li>
+                            <li><i class="fas fa-check-circle"></i> Limites augmentees</li>
+                            <li><i class="fas fa-check-circle"></i> Voix transcritte</li>
+                            <li><i class="fas fa-check-circle"></i> Réactions exclusives</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <a class="cta-button-card" data-service="Telegram Premium" data-service-name="Telegram Premium">Commander</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Separator -->
+    <div class="section-separator"></div>
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">COMMENT ÇA MARCHE ?</h2>
+            <p class="section-intro">Un processus simple en 3 étapes pour profiter de vos abonnements</p>
+            
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <h3>1. Choisissez votre offre</h3>
+                    <p>Cliquez sur le service de votre choix, puis sélectionnez l'offre qui vous convient</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>2. Remplissez le formulaire</h3>
+                    <p>Le champ "Service souhaité" est deja prérempli avec votre choix précis</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>3. Activation instantanée</h3>
+                    <p>Recevez vos accès par email/WhatsApp en moins de 10 minutes</p>
+                </div>
+            </div>
+            
+            <p class="security-note">Aucun engagement, résiliez à tout moment. Nous ne vous demandons jamais vos mots de passe, juste votre email pour l'activation. 100% sécurisé.</p>
+        </div>
+    </section>
+    <!-- Section Separator -->
+    <div class="section-separator"></div>
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">QUESTIONS FRÉQUENTES</h2>
+            <p class="section-intro">Nous avons répondu à vos doutes. Si vous avez d'autres questions, envoyez-nous un message !</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Est-ce légal ?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>R : Oui, totalement. Nous utilisons des comptes partagés ou des offres promotionnelles légales. Vous profitez des mêmes fonctionnalités qu'avec un abonnement classique, sans violation des CGU.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment ça marche l'activation ?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>R : Simple ! Après paiement, nous vous envoyons un email ou un message WhatsApp avec vos identifiants. Vous n'avez qu'à vous connecter et c'est parti. Pas besoin de télécharger quoi que ce soit.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Et si ça ne marche pas ?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>R : Notre support est l pour vous. Si jamais vous rencontrez un problème, envoyez-nous un message et nous le résolvons en moins d'une heure. Garantie satisfait ou remboursé sous 7 jours.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Puis-je partager mon compte ?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>R : Ça dépend de l'offre. Netflix et Amazon Prime permettent le partage familial. Spotify a une option Duo ou Famille. Nous vous précisons tout cela lors de la commande.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment je paie ?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>R : Nous acceptons les cartes bancaires Visa/Mastercard, PayPal et les virements bancaires. Le paiement est 100% sécurisé via notre système.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        L'abonnement se renouvelle-t-il automatiquement ?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>R : Non, nous ne prélevons rien automatiquement. À la fin de votre période d'abonnement, nous vous contactons pour savoir si vous souhaitez continuer. Vous restez maître de votre budget.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section Separator -->
+    <div class="section-separator"></div>
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">ILS NOUS FONT CONFIANCE, ILS ADORENT</h2>
+            <p class="section-intro">Des milliers d'utilisateurs streament malin avec GisFusion™. Voici ce qu'ils en disent :</p>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"J'économise plus de 15 000 FCFA par mois sur mes abonnements ! L'activation est super rapide et le support top. Je recommande à 200%."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">ML</div>
+                        <div class="author-info">
+                            <h4>Mariam L. - Cotonou</h4>
+                            <p>Services : Netflix + Spotify</p>
+                            <div class="rating">⭐⭐⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Au début j'étais sceptique, mais après 6 mois d'utilisation, je peux dire que c'est fiable. Netflix 4K sans payer cher, c'est trop fort."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div class="author-info">
+                            <h4>Jean D. - Porto-Novo</h4>
+                            <p>Service : Netflix</p>
+                            <div class="rating">⭐⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Le partage Netflix avec mes amis, c'est génial. On paie chacun 2 500 FCFA par mois pour du 4K. Le service client est réactif, je recommande.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TB</div>
+                        <div class="author-info">
+                            <h4>Thomas B. - Parakou</h4>
+                            <p>Service : Netflix (partage)</p>
+                            <div class="rating">⭐⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Prime Video à 2 500 FCFA par mois avec la livraison gratuite, c'est incroyable. Je l'utilise tous les jours. Merci GisFusion™ !"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SC</div>
+                        <div class="author-info">
+                            <h4>Sophie C. - Abomey-Calavi</h4>
+                            <p>Service : Amazon Prime</p>
+                            <div class="rating">⭐⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GisFusion™</h3>
+                    <p>Votre accès premium aux meilleurs services de streaming à prix réduit.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Netflix</a></li>
+                        <li><a href="#">Spotify</a></li>
+                        <li><a href="#">Amazon Prime</a></li>
+                        <li><a href="#">Disney+</a></li>
+                        <li><a href="#">Telegram Premium</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact WhatsApp</a></li>
+                        <li><a href="#">Guide d'utilisation</a></li>
+                        <li><a href="#">Conditions générales</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Mentions légales</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:gisfusionservice@gmail.com">gisfusionservice@gmail.com</a></li>
+                        <li><a href="#">+229 97 123 456</a></li>
+                        <li><a href="#">Support WhatsApp</a></li>
+                        <li><a href="#">Cotonou, Bénin</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 GisFusion™. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Modal pour le formulaire de commande -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Commander un abonnement</h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="service-info">
+                    <h3 id="serviceName">Service sélectionné</h3>
+                    <p>Remplissez le formulaire ci-dessous pour finaliser votre commande</p>
+                </div>
+                
+                <!-- Formulaire natif -->
+                <form id="gf-form" data-gf>
+                    <input name="name" placeholder="Nom complet" required>
+                    
+                    <!-- Champ de téléphone amélioré -->
+                    <div style="display: grid; grid-template-columns: 120px 1fr; gap: 10px;">
+                        <select name="country_code" id="countryCode" required>
+                            <option value="+229" data-placeholder="XX XX XX XX XX">🇧🇯 Bénin</option>
+                            <option value="+33" data-placeholder="X XX XX XX XX">🇫🇷 France</option>
+                            <option value="+225" data-placeholder="XX XX XX XX XX">🇨🇮 Côte d'Ivoire</option>
+                            <option value="+1" data-placeholder="XXX XXX XXXX">🇺🇸 USA/Canada</option>
+                            <option value="+44" data-placeholder="XXXX XXXXXX">🇬🇧 UK</option>
+                            <option value="+234" data-placeholder="XXX XXX XXXX">🇳🇬 Nigéria</option>
+                            <option value="+221" data-placeholder="XX XXX XX XX">🇸🇳 Sénégal</option>
+                        </select>
+                        <input name="phone_number" id="phoneNumber" placeholder="XX XX XX XX" required>
+                    </div>
+
+                    <input name="email" placeholder="Email (optionnel)">
+                    <select name="service" id="gf-service" required>
+                        <option value="">Service</option>
+                        <option>Netflix</option>
+                        <option>Prime Video</option>
+                        <option>Spotify</option>
+                        <option>Disney+</option>
+                        <option>Telegram Premium</option>
+                    </select>
+                    <select name="type" id="type" required>
+                        <option value="">Type de compte</option>
+                        <option>Personnel</option>
+                        <option>Partage</option>
+                    </select>
+                    <select name="duration" id="dur" required>
+                        <option value="">Durée</option>
+                        <option>1 mois</option>
+                        <option>3 mois</option>
+                        <option>6 mois</option>
+                        <option>12 mois</option>
+                    </select>
+                    <button type="submit">Valider ma commande</button>
+                    <small id="gf-msg"></small>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ajout d'un élément de débogage -->
+    <div id="debugInfo" class="debug-info"></div>
+    
+    <script>
+        // Fonction de débogage
+        function debug(message) {
+            console.log('[GisFusion Debug]', message);
+            const debugEl = document.getElementById('debugInfo');
+            if (debugEl) {
+                debugEl.style.display = 'block';
+                debugEl.textContent = message;
+                setTimeout(() => {
+                    debugEl.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Vérifier que le DOM est chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            debug('DOM chargé');
+            
+            // Vérifier que les éléments existent
+            const modal = document.getElementById('orderModal');
+            const form = document.getElementById('gf-form');
+            
+            if (!modal) {
+                debug('ERREUR: Modal non trouvé');
+                return;
+            }
+            if (!form) {
+                debug('ERREUR: Formulaire non trouvé');
+                return;
+            }
+            
+            debug('Éléments trouvés avec succès');
+        });
+
+        // Menu mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            
+            // Change l'icône du bouton
+            const icon = this.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Fermer le menu lors du clic sur un lien
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Toggle active class on clicked item
+                item.classList.toggle('active');
+                
+                // Close other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Système d'onglets pour les cartes d'abonnement
+        const tabButtons = document.querySelectorAll('.tab-button');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const service = this.getAttribute('data-service');
+                const offer = this.getAttribute('data-offer');
+                
+                // Récupérer la carte parente
+                const card = this.closest('.subscription-card');
+                
+                // Gérer les onglets principaux (Personnel/Partage)
+                if (offer === 'personal' || offer === 'shared') {
+                    // Masquer tous les contenus d'onglets principaux
+                    const mainTabContents = card.querySelectorAll('.tab-content');
+                    mainTabContents.forEach(content => {
+                        if (content.id.includes(service + '-' + offer)) {
+                            content.classList.add('active');
+                        } else if (content.id.includes(service + '-')) {
+                            content.classList.remove('active');
+                        }
+                    });
+                    
+                    // Désactiver tous les boutons d'onglets principaux
+                    const mainTabButtons = card.querySelectorAll('.offers-tabs > .tab-button');
+                    mainTabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Activer le bouton cliqué
+                    this.classList.add('active');
+                    
+                    // Mettre à jour le bouton Commander
+                    const ctaButton = card.querySelector('.cta-button-card');
+                    if (service === 'netflix') {
+                        if (offer === 'personal') {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Mobile');
+                        } else {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Partagé');
+                        }
+                    } else if (service === 'prime') {
+                        if (offer === 'personal') {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Personnel');
+                        } else {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Partagé');
+                        }
+                    }
+                } else {
+                    // Gérer les sous-onglets
+                    const parentContent = this.closest('.tab-content');
+                    const subTabContents = parentContent.querySelectorAll('.tab-content');
+                    const subTabButtons = parentContent.querySelectorAll('.offers-tabs > .tab-button');
+                    
+                    // Masquer tous les contenus de sous-onglets
+                    subTabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Désactiver tous les boutons de sous-onglets
+                    subTabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Afficher le contenu sélectionné
+                    const selectedContent = parentContent.querySelector('#' + service + '-' + offer);
+                    if (selectedContent) {
+                        selectedContent.classList.add('active');
+                    }
+                    
+                    // Activer le bouton cliqué
+                    this.classList.add('active');
+                    
+                    // Mettre à jour le bouton Commander
+                    const ctaButton = card.querySelector('.cta-button-card');
+                    if (service === 'netflix') {
+                        if (offer === 'mobile') {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Mobile');
+                        } else if (offer === 'essential') {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Essentiel');
+                        } else if (offer === 'standard') {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Standard');
+                        } else if (offer === 'premium') {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Premium');
+                        } else if (offer === 'shared-1month') {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Partagé 1 mois');
+                        } else if (offer === 'shared-3months') {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Partagé 3 mois');
+                        } else if (offer === 'shared-6months') {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Partagé 6 mois');
+                        } else if (offer === 'shared-12months') {
+                            ctaButton.setAttribute('data-service', 'Netflix');
+                            ctaButton.setAttribute('data-service-name', 'Netflix Partagé 12 mois');
+                        }
+                    } else if (service === 'prime') {
+                        if (offer === 'personal-1month') {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Personnel 1 mois');
+                        } else if (offer === 'personal-3months') {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Personnel 3 mois');
+                        } else if (offer === 'personal-6months') {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Personnel 6 mois');
+                        } else if (offer === 'personal-12months') {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Personnel 12 mois');
+                        } else if (offer === 'shared-1month') {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Partagé 1 mois');
+                        } else if (offer === 'shared-3months') {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Partagé 3 mois');
+                        } else if (offer === 'shared-6months') {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Partagé 6 mois');
+                        } else if (offer === 'shared-12months') {
+                            ctaButton.setAttribute('data-service', 'Prime Video');
+                            ctaButton.setAttribute('data-service-name', 'Prime Video Partagé 12 mois');
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        const navLinksElements = document.querySelectorAll('a[href^="#"]');
+        
+        navLinksElements.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            
+            if (window.scrollY > 100) {
+                header.style.padding = '5px 0';
+                header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                header.style.padding = '15px 0';
+                header.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
+        
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observer all animated elements
+        document.querySelectorAll('.subscription-card, .step, .testimonial-card, .faq-item').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+
+        // --- Initialisation du formulaire de téléphone ---
+        // Fonction pour mettre à jour le placeholder du numéro de téléphone
+        function updatePhonePlaceholder() {
+            const countryCodeSelect = document.getElementById('countryCode');
+            const phoneNumberInput = document.getElementById('phoneNumber');
+            const selectedOption = countryCodeSelect.options[countryCodeSelect.selectedIndex];
+            const placeholder = selectedOption.getAttribute('data-placeholder');
+            phoneNumberInput.placeholder = placeholder;
+        }
+
+        // Initialiser le placeholder du téléphone au chargement
+        updatePhonePlaceholder();
+
+        // Ajouter l'écouteur d'événement pour le sélecteur de pays
+        document.getElementById('countryCode').addEventListener('change', updatePhonePlaceholder);
+
+        // Fonction pour ouvrir la modal avec le formulaire (version corrigée)
+        function openModal(serviceValue, serviceNameText) {
+            debug('Ouverture de la modal pour: ' + serviceNameText);
+            
+            try {
+                const modal = document.getElementById("orderModal");
+                const serviceSelect = document.getElementById("gf-service");
+                const modalTitle = document.getElementById("modalTitle");
+                const serviceName = document.getElementById("serviceName");
+                
+                if (!modal || !serviceSelect) {
+                    debug('ERREUR: Éléments de la modal non trouvés');
+                    alert('Erreur technique. Veuillez réessayer.');
+                    return;
+                }
+                
+                // Préremplir le service
+                serviceSelect.value = serviceNameText || serviceValue;
+                
+                // Mettre à jour le titre
+                if (modalTitle) {
+                    modalTitle.textContent = 'Commander un abonnement ' + serviceValue;
+                }
+                if (serviceName) {
+                    serviceName.textContent = serviceNameText || serviceValue;
+                }
+                
+                // Afficher la modal
+                modal.classList.add("show");
+                document.body.style.overflow = "hidden";
+                
+                debug('Modal ouverte avec succès');
+                
+                // Forcer le focus sur le premier champ
+                setTimeout(() => {
+                    const firstInput = modal.querySelector('input[name="name"]');
+                    if (firstInput) {
+                        firstInput.focus();
+                    }
+                }, 300);
+                
+            } catch (error) {
+                debug('ERREUR lors de l\'ouverture de la modal: ' + error.message);
+                alert('Erreur technique: ' + error.message);
+            }
+        }
+
+        // Rendre la fonction accessible globalement
+        window.openModal = openModal;
+
+        // Fonction pour fermer la modal
+        function closeModal() {
+            debug('Fermeture de la modal');
+            
+            const modal = document.getElementById('orderModal');
+            if (modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Réinitialiser le message
+            const msg = document.getElementById('gf-msg');
+            if (msg) {
+                msg.textContent = '';
+                msg.className = '';
+            }
+            
+            // Réactiver le bouton
+            const submitButton = document.querySelector('#gf-form button[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = false;
+            }
+        }
+
+        // Fermer la modal en cliquant à l'extérieur
+        document.getElementById('orderModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Fermer la modal avec la touche Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Synchronisation des durées en fonction du service et du type
+        const map = {
+            'Netflix':        { 'Personnel':['1 mois','3 mois','6 mois','12 mois'], 'Partage':['1 mois','3 mois','6 mois','12 mois'] },
+            'Prime Video':    { 'Personnel':['1 mois','3 mois','6 mois','12 mois'], 'Partage':['1 mois','3 mois','6 mois','12 mois'] },
+            'Spotify':        { 'Personnel':[], 'Partage':['1 mois'] },
+            'Disney+':       { 'Personnel':['1 mois'], 'Partage':[] },
+            'Telegram Premium':{'Personnel':['1 mois'], 'Partage':[] }
+        };
+
+        function syncDurations() {
+            const svc = document.getElementById('gf-service');
+            const type = document.getElementById('type');
+            const dur = document.getElementById('dur');
+            
+            const s = svc.value, t = type.value;
+            dur.innerHTML = '<option value="">Durée</option>';
+            (map[s]?.[ t] || []).forEach(function(d) {
+                var o = document.createElement('option');
+                o.textContent = d;
+                o.value = d;
+                dur.appendChild(o);
+            });
+        }
+
+        // Ajouter les écouteurs d'événement pour les sélecteurs
+        document.getElementById('gf-service').addEventListener('change', syncDurations);
+        document.getElementById('type').addEventListener('change', syncDurations);
+
+        // Configuration de l'endpoint
+        const ENDPOINT = "https://script.google.com/macros/s/AKfycbzZSH0fL9cDM6AKiAjLbqYY04TtT-j9dOod9gXQ_9cx37T1a5ImU5UZxiodjv4yhpvo/exec";
+
+        // Gestion du formulaire
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('gf-form');
+            
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    debug('Soumission du formulaire');
+                    
+                    const msg = document.getElementById('gf-msg');
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    
+                    if (!msg || !submitBtn) {
+                        debug('ERREUR: Éléments du formulaire non trouvés');
+                        return;
+                    }
+                    
+                    submitBtn.disabled = true;
+                    msg.textContent = "Envoi en cours...";
+                    msg.className = "loading";
+
+                    try {
+                        // Récupération des données
+                        const name = form.querySelector('input[name="name"]').value.trim();
+                        const cc = form.querySelector('select[name="country_code"]').value.trim();
+                        const pn = form.querySelector('input[name="phone_number"]').value.trim();
+                        const email = form.querySelector('input[name="email"]').value.trim();
+                        const service = document.getElementById('gf-service').value.trim();
+                        const type = form.querySelector('select[name="type"]').value.trim();
+                        const duration = form.querySelector('select[name="duration"]').value.trim();
+
+                        if (!name || !cc || !pn || !service || !type || !duration) {
+                            throw new Error('Veuillez remplir tous les champs obligatoires');
+                        }
+
+                        const payload = { 
+                            name, 
+                            phone: (cc + " " + pn).trim(), 
+                            email, 
+                            service, 
+                            type, 
+                            duration 
+                        };
+
+                        debug('Envoi des données: ' + JSON.stringify(payload));
+
+                        const response = await fetch(ENDPOINT, {
+                            method: 'POST',
+                            headers: { 
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify(payload),
+                            mode: 'cors',
+                            cache: 'no-store',
+                        });
+
+                        debug('Status de la réponse: ' + response.status);
+
+                        if (!response.ok) {
+                            const errorText = await response.text();
+                            throw new Error(`HTTP ${response.status}: ${errorText}`);
+                        }
+
+                        const data = await response.json();
+                        debug('Réponse reçue: ' + JSON.stringify(data));
+
+                        if (!data.ok) {
+                            throw new Error(data.error || "Commande rejetée");
+                        }
+
+                        msg.textContent = "Commande envoyée avec succès ! Redirection...";
+                        msg.className = "success";
+
+                        // Redirection
+                        setTimeout(() => {
+                            window.location.href = data.next_url || 'https://wa.me/22958331102';
+                        }, 1000);
+
+                    } catch (error) {
+                        debug('ERREUR: ' + error.message);
+                        msg.textContent = "Erreur: " + error.message;
+                        msg.className = "error";
+                        submitBtn.disabled = false;
+                        
+                        // Afficher une alerte pour les erreurs critiques
+                        if (error.message.includes('Failed to fetch')) {
+                            alert('Erreur de connexion. Vérifiez votre connexion internet ou réessayez plus tard.');
+                        }
+                    }
+                });
+            } else {
+                debug('ERREUR: Formulaire non trouvé');
+            }
+        });
+
+        // Test au chargement
+        window.addEventListener('load', function() {
+            debug('Page entièrement chargée');
+            
+            // Vérifier que les boutons Commander fonctionnent
+            document.querySelectorAll('.cta-button-card').forEach((btn, index) => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    debug('Bouton Commander cliqué #' + index);
+                    
+                    // Récupérer les attributs data
+                    const service = this.getAttribute('data-service');
+                    const serviceName = this.getAttribute('data-service-name');
+                    
+                    if (service && serviceName) {
+                        debug('Execution de openModal avec: ' + service + ', ' + serviceName);
+                        openModal(service, serviceName);
+                    } else {
+                        debug('Aucun attribut data-service ou data-service-name trouvé');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
